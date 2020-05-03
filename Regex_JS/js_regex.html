@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS + Regex</title>
+</head>
+<body>
+    <input type="file" name="file" id="in">
+    <pre id="container">
+    </pre>
+    <script>
+        // Imprimir Partidos de Mexico en copas del mundo
+        "use strict";
+        function leerArchivo(e) {
+            var archivo = e.target.files[0];
+            var lector = new FileReader();
+            lector.onload = function(progressEvent) {
+                var lines = this.result.split('\n');
+                for(var line = 0; line < lines.length; line++){
+                    if(lines[line].match(/^.*,Mexico?.*,FIFA World Cup,.*,FALSE$/i)){
+                        console.log(lines[line]);
+                    }
+                }
+            };
+            lector.readAsText(archivo);
+        }
+        document.getElementById('in').addEventListener('change', leerArchivo, false);
+    </script>
+</body>
+</html>
